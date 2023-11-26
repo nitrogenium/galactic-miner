@@ -4,11 +4,11 @@ use log::LevelFilter;
 use crate::Error;
 
 #[derive(Parser, Debug)]
-#[clap(name = "karlsen-miner", version, about = "A Karlsen high performance CPU miner", term_width = 0)]
+#[clap(name = "galactic-miner", version, about = "A Galactic miner", term_width = 0)]
 pub struct Opt {
     #[clap(short, long, help = "Enable debug logging level")]
     pub debug: bool,
-    #[clap(short = 'a', long = "mining-address", help = "The Kaspa address for the miner reward")]
+    #[clap(short = 'a', long = "mining-address", help = "The Galactic address for the miner reward")]
     pub mining_address: String,
     #[clap(short = 's', long = "karlsend-address", default_value = "127.0.0.1", help = "The IP of the karlsend instance")]
     pub karlsend_address: String,
@@ -16,12 +16,12 @@ pub struct Opt {
     #[clap(long = "devfund-percent", help = "The percentage of blocks to send to the devfund (minimum 0%)", default_value = "0", parse(try_from_str = parse_devfund_percent))]
     pub devfund_percent: u16,
 
-    #[clap(short, long, help = "karlsend port [default: Mainnet = 42110, Testnet = 16211]")]
+    #[clap(short, long, help = "Galactic port")]
     port: Option<u16>,
 
     #[clap(long, help = "Use testnet instead of mainnet [default: false]")]
     testnet: bool,
-    #[clap(short = 't', long = "threads", help = "Amount of CPU miner threads to launch [default: 0]")]
+    #[clap(short = 't', long = "threads", help = "Amount of CPU miner")]
     pub num_threads: Option<u16>,
     #[clap(
         long = "mine-when-not-synced",
@@ -79,7 +79,7 @@ impl Opt {
             };
             self.karlsend_address = format!("grpc://{}:{}", karlsend, port);
         }
-        log::info!("karlsend address: {}", self.karlsend_address);
+        log::info!("Galactic address: {}", self.karlsend_address);
 
         if self.num_threads.is_none() {
             self.num_threads = Some(0);
