@@ -1,9 +1,9 @@
 #[macro_use]
-extern crate karlsen_miner;
+extern crate galaxy_miner;
 
 use clap::{ArgMatches, FromArgMatches};
 use cust::prelude::*;
-use karlsen_miner::{Plugin, Worker, WorkerSpec};
+use galaxy_miner::{Plugin, Worker, WorkerSpec};
 use log::LevelFilter;
 use std::error::Error as StdError;
 #[cfg(feature = "overclock")]
@@ -57,7 +57,7 @@ impl Plugin for CudaPlugin {
     }
 
     //noinspection RsTypeCheck
-    fn process_option(&mut self, matches: &ArgMatches) -> Result<usize, karlsen_miner::Error> {
+    fn process_option(&mut self, matches: &ArgMatches) -> Result<usize, galaxy_miner::Error> {
         let opts: CudaOpt = CudaOpt::from_arg_matches(matches)?;
 
         self._enabled = !opts.cuda_disable;

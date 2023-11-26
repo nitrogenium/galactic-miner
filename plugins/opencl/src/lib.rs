@@ -1,8 +1,8 @@
 #[macro_use]
-extern crate karlsen_miner;
+extern crate galaxy_miner;
 
 use clap::{ArgMatches, FromArgMatches};
-use karlsen_miner::{Plugin, Worker, WorkerSpec};
+use galaxy_miner::{Plugin, Worker, WorkerSpec};
 use log::{info, LevelFilter};
 use opencl3::device::{Device, CL_DEVICE_TYPE_ALL};
 use opencl3::platform::{get_platforms, Platform};
@@ -45,7 +45,7 @@ impl Plugin for OpenCLPlugin {
     }
 
     //noinspection RsTypeCheck
-    fn process_option(&mut self, matches: &ArgMatches) -> Result<usize, karlsen_miner::Error> {
+    fn process_option(&mut self, matches: &ArgMatches) -> Result<usize, galaxy_miner::Error> {
         let opts: OpenCLOpt = OpenCLOpt::from_arg_matches(matches)?;
 
         self._enabled = opts.opencl_enable;
