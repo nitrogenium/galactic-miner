@@ -138,7 +138,7 @@ async fn main() -> Result<(), Error> {
     env_logger::builder().filter_level(opt.log_level()).parse_default_env().init();
     info!("=================================================================================");
     info!("                 galaxy-miner GPU {}", env!("CARGO_PKG_VERSION"));
-    info!(" Mining for: {}", opt.mining_address);
+    // info!(" Mining for: {}", opt.mining_address);
     info!("=================================================================================");
     info!("Found plugins: {:?}", plugins);
     info!("Plugins found {} workers", worker_count);
